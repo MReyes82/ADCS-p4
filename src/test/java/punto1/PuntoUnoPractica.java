@@ -1,0 +1,90 @@
+package punto1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import java.time.Duration;
+
+public class PuntoUnoPractica
+{
+    private WebDriver _driver;
+    private WebDriverWait _wait;
+
+    @BeforeMethod
+    public void setup()
+    {
+        // inicializamos los drivers (atributos de la clase)
+        _driver = new ChromeDriver();
+        _wait = new WebDriverWait(_driver, Duration.ofSeconds(10)); // inicializar con argumento de duracion de 10 segundos usando la clase especializada de Java
+    }
+
+    @Test
+    public void PrimerTest() throws InterruptedException
+    {
+        // Creamos el driver para el sitio web
+        _driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
+
+        /* Creamos los objetos WebElement para la siguiente informacion del sitio web:
+           - Text input field
+           - Password field
+           - Text area
+        */
+        WebElement textInput = _driver.findElement(By.id("my-text-id"));
+        WebElement passwordField = _driver.findElement(By.name("my-password"));
+        WebElement textArea = _driver.findElement(By.name("my-textarea"));
+        // Ingresamos valores para cada campo
+        textInput.sendKeys("Mi usuaruio");
+        passwordField.sendKeys("Mi contraseña");
+        textArea.sendKeys("Texto descriptivo");
+        /*
+            Creamos los objetos para la interacción con el campo dropdown, checkbox, radio button
+           y date picker.
+         */
+        WebElement dropdown = _driver.findElement(By.name("my-select"));
+        WebElement checkbox = _driver.findElement(By.id("my-check-1"));
+        WebElement radioButton = _driver.findElement(By.id("my-radio-2"));
+        WebElement datePicker = _driver.findElement(By.name("my-date"));
+
+        // Interaccion con el dropdown
+        dropdown.click();
+        // Navegamos entre las opciones por medio de simular las teclas de flechas.
+        dropdown.sendKeys(Keys.ARROW_DOWN); // Navegamos a la primera opcion
+        // y la elegimos
+        dropdown.click();
+        // Interactuamos con el checkbox, des-seleccionándolo
+        checkbox.click();
+        // Interactuamos con el radio button, seleccionando el segundo. (Etiquetado como "Default")
+        radioButton.click();
+        // Interactuamos con el date picker, ingresando una fecha
+        datePicker.click();
+        datePicker.sendKeys("2026/01/01");
+
+        // Por ultimo, subimos el formulario
+        // Al no poder encontrar el boton de submit por su id, name o class, lo buscamos por su xpath
+        // Pero añadimos un try catch, para que arroje la excepcion especifica en caso de no encontrarl el objeto.
+        try {
+            WebElement submitButton = _driver.findElement(By.xpath("/html/body/main/div/form/div/div[2]/button"));
+            System.out.println("El texto del boton es: " + submitButton.getText()); // confirmacion de localizacion
+            submitButton.click();
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudo encontrar el boton de submit por su xpath", e);
+        }
+    }
+
+    @AfterMethod
+    public void teardown()
+    {
+        if (_driver != null)
+            _driver.quit();
+    }
+}
