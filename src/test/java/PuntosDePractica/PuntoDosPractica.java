@@ -1,31 +1,27 @@
-package punto1;
+package PuntosDePractica;
 
+import com.epam.healenium.SelfHealingDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-
-public class PuntoUnoPractica
+public class PuntoDosPractica
 {
-    private WebDriver _driver;
-    private WebDriverWait _wait;
+    private SelfHealingDriver _driver;
 
     @BeforeMethod
     public void setup()
     {
         // inicializamos los drivers (atributos de la clase)
-        _driver = new ChromeDriver();
-        _wait = new WebDriverWait(_driver, Duration.ofSeconds(10)); // inicializar con argumento de duracion de 10 segundos usando la clase especializada de Java
+        // haciendo el wrap con el driver self-healing de selenium
+        // esto permite la integración con Healenium
+        WebDriver delegate =  new ChromeDriver();
+        _driver = SelfHealingDriver.create(delegate);
     }
 
     @Test
