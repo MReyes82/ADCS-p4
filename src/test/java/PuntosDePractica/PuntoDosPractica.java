@@ -39,7 +39,7 @@ public class PuntoDosPractica
         WebElement passwordField = _driver.findElement(By.name("my-password"));
         WebElement textArea = _driver.findElement(By.name("my-textarea"));
         // Ingresamos valores para cada campo
-        textInput.sendKeys("Mi usuaruio");
+        textInput.sendKeys("Mi usuario");
         passwordField.sendKeys("Mi contraseña");
         textArea.sendKeys("Texto descriptivo");
         /*
