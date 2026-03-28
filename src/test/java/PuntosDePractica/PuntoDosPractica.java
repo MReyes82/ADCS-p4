@@ -36,8 +36,8 @@ public class PuntoDosPractica
            - Text area
         */
         WebElement textInput = _driver.findElement(By.id("my-text-id"));
-        WebElement passwordField = _driver.findElement(By.name("my-password"));
-        WebElement textArea = _driver.findElement(By.name("my-textarea"));
+        WebElement passwordField = _driver.findElement(By.id("my-password"));
+        WebElement textArea = _driver.findElement(By.id("my-textarea"));
         // Ingresamos valores para cada campo
         textInput.sendKeys("Mi usuario");
         passwordField.sendKeys("Mi contraseña");
@@ -46,10 +46,10 @@ public class PuntoDosPractica
             Creamos los objetos para la interacción con el campo dropdown, checkbox, radio button
            y date picker.
          */
-        WebElement dropdown = _driver.findElement(By.name("my-select"));
+        WebElement dropdown = _driver.findElement(By.id("my-select"));
         WebElement checkbox = _driver.findElement(By.id("my-check-1"));
         WebElement radioButton = _driver.findElement(By.id("my-radio-2"));
-        WebElement datePicker = _driver.findElement(By.name("my-date"));
+        WebElement datePicker = _driver.findElement(By.id("my-date"));
 
         // Interaccion con el dropdown
         dropdown.click();
